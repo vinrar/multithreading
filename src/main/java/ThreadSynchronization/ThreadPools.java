@@ -30,9 +30,13 @@ public class ThreadPools {
             executor.submit(new Processor(i));
             Thread.sleep(500);
         }
-        executor.shutdown();
+        executor.shutdown();//Stops taking more tasks and orderly executes the submitted tasks
         try {
             executor.awaitTermination(1, TimeUnit.DAYS);
+            //Waits until all the threads are executed in specific amount of time.
+            //If the threads are not executed or if the threads are interrupted, throws an interrupted exception
+            //Returns true if the executor is successfully terminated
+            //Returns false if the executor exceeds the time limit
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

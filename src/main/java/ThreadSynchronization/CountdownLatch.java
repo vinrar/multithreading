@@ -11,7 +11,7 @@ class Processor1 implements Callable {
     }
 
     public Integer call(){
-        System.out.println(" starting Thread Nme : "+Thread.currentThread().getName() + "Latch count: " + latch.getCount());
+        System.out.println("Starting Thread Nme : "+Thread.currentThread().getName() + "Latch count: " + latch.getCount());
         try {
             Thread.sleep(3000);
         } catch (InterruptedException e) {
@@ -38,10 +38,12 @@ public class CountdownLatch {
 //                e.printStackTrace();
 //            }
         }
-        latch.await();
-        executors.shutdown();
+        executors.shutdown();//stops taking anymore tasks from submit
+        latch.await();//waits till the latch countdown goes to 0. Then returns the control to the main thread.
+        //Does not stop the execution of other threads once the latch goes down to 0
+        //Other threads continue to run
         try {
-            future.get();
+            future.get();//T
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
